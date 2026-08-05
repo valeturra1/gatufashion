@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
-import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { User, Mail, Lock, Eye, EyeOff, PawPrint } from 'lucide-react'
 import tituloImg from '../assets/gaturro.png'
 import fondoImg from '../assets/fondoRegistro.png'
 
@@ -12,6 +12,7 @@ function Registro() {
   const [confirmarPassword, setConfirmarPassword] = useState('')
   const [error, setError] = useState('')
   const [mostrarPassword, setMostrarPassword] = useState(false)
+  const [cargando, setCargando] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
@@ -23,6 +24,8 @@ function Registro() {
         return
     }
 
+    setCargando(true)
+
     try {
       await axios.post('http://127.0.0.1:8000/api/registro/', {
         username,
@@ -31,14 +34,24 @@ function Registro() {
       })
       navigate('/login')
     } catch (err) {
-      setError('No se pudo registrar. Revisa los datos e intenta de nuevo.')
-      console.log(err.response?.data)
+      const datos = err.response?.data
+
+      if (datos?.username) {
+        setError('Ya existe una cuenta con ese nombre de usuario')
+      } else if (datos?.email) {
+        setError('Ya existe una cuenta con ese correo')
+      } else {
+        setError('No se pudo registrar. Revisa los datos e intenta de nuevo.')
+      
+      }
+      console.log(datos)
+      setCargando(false)
     }
   }
 
   return (
     <div
-      className="relative flex items-center justify-center h-screen w-full overflow-hidden px-4"
+      className="relative flex items-center justify-center h-screen w-full overflow-hidden"
       style={{
         backgroundImage: `url(${fondoImg})`,
         backgroundSize: 'cover',
@@ -59,9 +72,6 @@ function Registro() {
           onSubmit={handleSubmit}
           className="relative z-10 bg-white rounded-3xl shadow-2xl px-8 pt-16 pb-10 w-full flex flex-col gap-4"
         >
-          {error && (
-            <p className="text-red-500 text-sm text-center">{error}</p>
-          )}
 
           <h1 className="text-2xl font-bold text-orange-500 text-center -mt-3 mb-2">
             Crea tu cuenta
@@ -141,11 +151,24 @@ function Registro() {
             </div>
           </div>
 
+          {error && (
+            <p className="text-red-500 text-md text-center">{error}</p>
+          )}
+
           <button
             type="submit"
-            className="w-full py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-semibold text-lg transition-colors cursor-pointer mt-2"
+            disabled={cargando}
+            className="w-full py-3 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-semibold text-lg transition-colors cursor-pointer mt-2
+            disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
-            Registrarme
+            {cargando ? (
+            <div className="flex items-center justify-center gap-2">
+              <PawPrint className="animate-spin" size={20} />
+              Registrando...
+            </div>
+          ) : (
+            'Registrarme'
+          )}
           </button>
 
           <p className="text-center text-sm text-gray-500">
