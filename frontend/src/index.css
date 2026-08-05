@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+@keyframes moverDegradado {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.fondo-animado {
+  background-image: linear-gradient(120deg, #FFF9E6, #FFC700, #ff863b, #FFC700, #FFF9E6);
+  background-size: 300% 300%;
+  animation: moverDegradado 8s ease-in-out infinite;
+}
+
+@keyframes flotar {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.titulo-flotante {
+  animation: flotar 3s ease-in-out infinite;
+}
+
+.overlay-degradado {
+  background-image: linear-gradient(
+    160deg,
+    rgba(255, 199, 0, 0.75),
+    rgba(255, 122, 41, 0.55)
+  );
+}
+
+.overlay-oscuro {
+  background-color: rgba(0, 0, 0, 0.40);
+}
