@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { Mail, PawPrint } from 'lucide-react'
 import tituloImg from '../assets/gaturro.png'
@@ -94,7 +94,7 @@ function RecuperarPassword() {
           </h1>
 
           <div>
-            <h2 className="text-lg font-bold text-gray-600 text-left mb-1">Ingresa el correo electrónico asociado a tu cuenta</h2>
+            <h2 className="text-lg font-bold text-gray-600 text-left mb-2">Ingresa el correo electrónico asociado a tu cuenta</h2>
             <div className="relative">
               <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
               <input
@@ -102,7 +102,7 @@ function RecuperarPassword() {
                 placeholder="Correo electrónico"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-full pl-11 pr-4 py-2 mt-2 outline-none focus:border-orange-500 transition-colors"
+                className="w-full border border-gray-300 rounded-full pl-11 pr-4 py-2 outline-none focus:border-orange-500 transition-colors"
                 required
               />
             </div>

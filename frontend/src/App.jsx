@@ -3,6 +3,7 @@ import Principal from './components/Principal'
 import Login from './components/Login'
 import Registro from './components/Registro'
 import RecuperarPassword from './components/RecuperarPassword'
+import CambiarPassword from './components/CambiarPassword'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/registro" element={<Registro />} />
       <Route path="/recuperar-password" element={<RecuperarPassword />} />
+      <Route path="/cambiar-password/:uid/:token" element={<CambiarPassword />} />
     </Routes>
   )
 }
