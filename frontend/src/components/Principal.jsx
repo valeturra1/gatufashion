@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import Sidebar from './Sidebar'
 import fondoImg from '../assets/fondo.jpg'
+import tituloImg from '../assets/gaturro.png'
 
 function Principal() {
     const navigate = useNavigate()
@@ -9,7 +9,9 @@ function Principal() {
         <div className="flex flex-col md:flex-row h-screen w-full">
 
             {/* Panel izquierdo */}
-            <Sidebar />
+            <div className="w-full h-[30vh] md:w-[30%] md:h-auto flex items-center justify-center fondo-animado">
+                <img src={tituloImg} alt="GatuFashion" className="w-full max-w-[450px] titulo-flotante" />
+            </div>
 
             {/* Panel derecho */}
             <div className="relative flex-1 flex items-center justify-center overflow-hidden">

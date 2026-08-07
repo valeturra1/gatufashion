@@ -4,6 +4,7 @@ import Login from './components/Login'
 import Registro from './components/Registro'
 import RecuperarPassword from './components/RecuperarPassword'
 import CambiarPassword from './components/CambiarPassword'
+import MiArmario from './components/MiArmario'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/registro" element={<Registro />} />
       <Route path="/recuperar-password" element={<RecuperarPassword />} />
       <Route path="/cambiar-password/:uid/:token" element={<CambiarPassword />} />
+      <Route path="/mi-armario" element={<MiArmario />} />
     </Routes>
   )
 }

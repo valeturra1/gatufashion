@@ -27,8 +27,9 @@ function Login() {
 
         localStorage.setItem('access', respuesta.data.access)
         localStorage.setItem('refresh', respuesta.data.refresh)
+        localStorage.setItem('username', username)
 
-        navigate('/')
+        navigate('/mi-armario')
 
       } catch (err) {
         const datos = err.response?.data

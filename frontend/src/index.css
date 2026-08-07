@@ -28,6 +28,11 @@ body {
   animation: moverDegradado 8s ease-in-out infinite;
 }
 
+.fondo {
+  background-image: linear-gradient(90deg, #F7BA04, #FAAD1F);
+  background-size: 300% 300%;
+}
+
 @keyframes flotar {
   0% {
     transform: translateY(0px);
