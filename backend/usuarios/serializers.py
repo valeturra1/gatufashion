@@ -5,7 +5,6 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from .models import Usuario
 
-
 class RegistroSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
 
@@ -72,12 +71,11 @@ class CambiarPasswordSerializer(serializers.Serializer):
     # y el validate cuando la validacion depende de varios campos,
     # en este caso depende del token y del uid, asi que tenemos una especie de diccionario
     def validate(self, data):
-        uid = force_str(urlsafe_base64_decode(data['uid'])) # urlsafe_base64_decode devuelve bytes, por eso usamos force_str para que lo convierta a string
-
         # probamos si existe el usuario y si el token es valido, si este no existe mandamos un error
         try:
+            uid = force_str(urlsafe_base64_decode(data['uid'])) # urlsafe_base64_decode devuelve bytes, por eso usamos force_str para que lo convierta a string
             usuario = Usuario.objects.get(pk=uid)
-        except Usuario.DoesNotExist:
+        except (TypeError, ValueError, OverflowError, Usuario.DoesNotExist):
             raise serializers.ValidationError("Token inválido")
 
         token = default_token_generator.check_token(usuario, data['token']) # asi accedemos a los datos del diccionario
@@ -96,3 +94,4 @@ class CambiarPasswordSerializer(serializers.Serializer):
 
         self.usuario.set_password(password) # seteamos la nueva contraseña, usamos set_password porque encripta la contraseña antes de guardarla en la base de datos
         self.usuario.save() # guardamos cambios
+    

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'usuarios',
+    'armario',
 ]
 
 MIDDLEWARE = [
@@ -125,6 +126,15 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
 AUTH_USER_MODEL = 'usuarios.Usuario'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -133,3 +143,5 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
